@@ -25,7 +25,7 @@ const getters = {
 const actions = {
   async [LOGIN](context, credentials) {
     try {
-      const data = await api.post('/users/login', { user: credentials })
+      const data = await api.post('/auth/login', { ...credentials })
       context.commit(SET_AUTH, data.user);
     } catch (err) {
       context.commit(SET_ERROR, err)
