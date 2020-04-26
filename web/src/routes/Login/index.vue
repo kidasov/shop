@@ -7,13 +7,13 @@
 
 <template>
   <section>
-    <form @submit.prevent="handleSubmit(email, password)">
+    <form @submit.prevent="handleSubmit(username, password)">
       <fieldset class="form-group">
         <input
           class="form-control form-control-lg"
           type="text"
-          v-model="email"
-          placeholder="Email"
+          v-model="username"
+          placeholder="Username"
         />
       </fieldset>
       <fieldset class="form-group">
@@ -39,13 +39,13 @@ export default {
 
   data() {
     return {
-      email: null,
+      username: null,
       password: null
     }
   },
   methods: {
-    handleSubmit(email, password) {
-      this.$store.dispatch(LOGIN, { email, password }).then(res => console.log("Res", res));
+    handleSubmit(username, password) {
+      this.$store.dispatch(LOGIN, { username, password }).then(res => console.log("Res", res));
     }
   }
 }

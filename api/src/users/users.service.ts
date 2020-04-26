@@ -8,11 +8,11 @@ export class UsersService {
 
   constructor() {
     this.users = [
-      { userId: 1, name: 'Bulat', password: '771992' }
+      { userId: 1, username: 'Bulat', password: '771992' }
     ]
   }
 
   async findOne(name: string): Promise<User | undefined> {
-    return this.users.find(user => user.name === name);
+    return this.users.find(user => user.username === name);
   }
 }
