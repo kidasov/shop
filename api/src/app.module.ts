@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { ProductsController } from './products/products.controller';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { User } from './users/user.enity';
 
 @Module({
   imports: [AuthModule, UsersModule,
@@ -14,8 +15,8 @@ import { UsersModule } from './users/users.module';
       port: 5432,
       username: 'postgres',
       password: 'example',
-      database: 'postgres',
-      entities: [],
+      database: 'db',
+      entities: [User],
       synchronize: true
     })
   ],
