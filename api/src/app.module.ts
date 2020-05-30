@@ -6,6 +6,7 @@ import { ProductsController } from './products/products.controller';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { User } from './users/user.enity';
+import { Word } from './words/word.entity';
 
 @Module({
   imports: [AuthModule, UsersModule,
@@ -16,7 +17,7 @@ import { User } from './users/user.enity';
       username: 'postgres',
       password: 'example',
       database: 'db',
-      entities: [User],
+      entities: [User, Word],
       synchronize: true
     })
   ],
