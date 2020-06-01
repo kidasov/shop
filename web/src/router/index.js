@@ -7,12 +7,17 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: () => import('@/routes/Login')
+      component: () => import('@/routes/Dictionary')
     },
     {
       path: '/login',
       name: 'login',
       component: () => import('@/routes/Login')
+    },
+    {
+      path: '/dictionary',
+      name: 'dictionary',
+      component: () => import('@/routes/Dictionary')
     },
   ]
 });

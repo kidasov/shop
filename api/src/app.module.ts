@@ -3,25 +3,29 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProductsController } from './products/products.controller';
+import { LanguagesController } from './languages/languages.controller';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { User } from './users/user.enity';
 import { Word } from './words/word.entity';
+import { Translation } from './translations/translation.entity';
+import { Language } from './languages/language.entity';
+import { LanguagesModule } from './languages/languages.module';
 
 @Module({
-  imports: [AuthModule, UsersModule,
-    TypeOrmModule.forRoot({
+  imports: [AuthModule, UsersModule, LanguagesModule,
+  TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
       port: 5432,
       username: 'postgres',
       password: 'example',
       database: 'db',
-      entities: [User, Word],
+      entities: [User, Language, Translation, Word],
       synchronize: true
     })
   ],
-  controllers: [AppController, ProductsController],
+  controllers: [AppController, LanguagesController, ProductsController],
   providers: [AppService],
 })
 
