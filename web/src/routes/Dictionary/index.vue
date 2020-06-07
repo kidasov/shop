@@ -1,32 +1,34 @@
 <template>
-  <section>
-    <div>Hello my world!</div>
-    <form @submit.prevent="handleAddLanguage(language)">
-      <fieldset class="form-group">
-        <input
-          class="form-control form-control-lg"
-          type="text"
-          placeholder="Language"
-          v-model="language"
-        />
-      </fieldset>
-       <button class="btn btn-lg btn-primary pull-xs-right">
-        Add language
-      </button>
-    </form>
-    <ul id="example-2">
-      <li v-bind:key="index" v-for="(item, index) in languages">
-        {{ item.name }}
-      </li>
-    </ul>
-  </section>
+    <section>
+      <div>Hello my world!</div>
+      <form @submit.prevent="handleAddLanguage(language)">
+        <fieldset class="form-group">
+          <input
+            class="form-control form-control-lg"
+            type="text"
+            placeholder="Language"
+            v-model="language"
+          />
+        </fieldset>
+        <button class="btn btn-lg btn-primary pull-xs-right">
+          Add language
+        </button>
+      </form>
+
+      <LanguageBar :languages="languages"></LanguageBar>
+    </section>
 </template>
 
 <script>
+import LanguageBar from "./components/LanguageBar";
 import { ADD_LANGUAGE, GET_LANGUAGES } from "@/store/actions.type";
 
 export default {
   name: "Dictionary",
+  components: {
+    LanguageBar
+  },
+  
 
   data() {
     return {

@@ -1,9 +1,11 @@
 import api from '../api';
-import { ADD_LANGUAGE, GET_LANGUAGES } from './actions.type';
-import { ADD_LANGUAGE_MUTATION, SET_LANGUAGES_MUTATION, SET_ERROR  } from './mutations.type';
+import { ADD_LANGUAGE, GET_LANGUAGES, SELECT_FROM_LANGUAGE, SELECT_TO_LANGUAGE } from './actions.type';
+import { ADD_LANGUAGE_MUTATION, SET_LANGUAGES_MUTATION, SET_ERROR, SELECT_FROM_LANGUAGE_MUTATION, SELECT_TO_LANGUAGE_MUTATION  } from './mutations.type';
 
 const state = {
-  languages: []
+  languages: [],
+  selectedFromLanguage: null,
+  selectedToLanguage: null
 };
 
 const getters = {
@@ -31,6 +33,12 @@ const actions = {
     } catch (err) {
       context.commit(SET_ERROR, err);
     }
+  },
+  [SELECT_FROM_LANGUAGE](context, language) {
+    context.commit(SELECT_FROM_LANGUAGE_MUTATION, language);
+  },
+  [SELECT_TO_LANGUAGE](context, language) {
+    context.commit(SELECT_TO_LANGUAGE_MUTATION, language);
   }
 }
 
@@ -44,6 +52,12 @@ const mutations = {
   [SET_LANGUAGES_MUTATION](state, languages) {
     state.languages = languages;
   },
+  [SELECT_FROM_LANGUAGE_MUTATION](state, language) {
+    state.selectedFromLanguage = language;
+  },
+  [SELECT_TO_LANGUAGE](state, language) {
+    state.selectedToLanguage = language;
+  }
 };
 
 export default {

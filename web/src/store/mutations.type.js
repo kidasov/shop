@@ -14,3 +14,5 @@ export const RESET_STATE = "resetModuleState";
 export const ADD_LANGUAGE_MUTATION = 'addLanguage';
 export const GET_LANGUAGES_MUTATION = 'getLanguages';
 export const SET_LANGUAGES_MUTATION = 'setLanguages';
+export const SELECT_FROM_LANGUAGE_MUTATION = 'selectFromLanguage';
+export const SELECT_TO_LANGUAGE_MUTATION = 'selectToLanguage';
