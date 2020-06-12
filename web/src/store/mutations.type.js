@@ -16,3 +16,4 @@ export const GET_LANGUAGES_MUTATION = 'getLanguages';
 export const SET_LANGUAGES_MUTATION = 'setLanguages';
 export const SELECT_FROM_LANGUAGE_MUTATION = 'selectFromLanguage';
 export const SELECT_TO_LANGUAGE_MUTATION = 'selectToLanguage';
+export const SEARCH_TRANSLATION_MUTATION = 'searchTranslation';

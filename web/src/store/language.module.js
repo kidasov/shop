@@ -12,6 +12,12 @@ const getters = {
   languages(state) {
     console.log('state', state);
     return state.languages;
+  },
+  selectedFromLanguage(state) {
+    return state.selectedFromLanguage;
+  },
+  selectedToLanguage(state) {
+    return state.selectedToLanguage;
   }
 };
 
@@ -55,7 +61,7 @@ const mutations = {
   [SELECT_FROM_LANGUAGE_MUTATION](state, language) {
     state.selectedFromLanguage = language;
   },
-  [SELECT_TO_LANGUAGE](state, language) {
+  [SELECT_TO_LANGUAGE_MUTATION](state, language) {
     state.selectedToLanguage = language;
   }
 };

@@ -1,11 +1,12 @@
 <template>
   <div role="button"
+    v-on:click="handlePress(language)"
     class="button"
     :class="[
       checked ? 'checked' : 'unchecked'
     ]"
   >
-    {{name}}
+    {{language.name}}
     <span clas="language-selector"></span>
   </div>
 </template>
@@ -15,8 +16,13 @@ export default {
   name: 'LanguageButton',
   props: {
     onPress: () => {},
-    name: String,
-    checked: Boolean
+    checked: Boolean,
+    language: Object
+  },
+  methods: {
+    handlePress(language) {
+      this.$emit('onSelectLanguage', language);
+    }
   }
 }
 </script>
@@ -28,13 +34,12 @@ export default {
     font-size: 14px;
     font-weight: 500;
     line-height: 48px;
+    text-transform: uppercase;
+    padding: 0 24px;
   }
 
-  .checked::after {
-    position: absolute;
-    top: 0;
-    left: 0;
-    content: 0;
+  .checked {
+    content: "";
     width: 100%;
     height: 43px;
     border-bottom: solid 3px #4284f3;

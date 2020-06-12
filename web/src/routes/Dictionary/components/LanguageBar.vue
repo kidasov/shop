@@ -1,7 +1,7 @@
 <template>
-  <div class="content">
+  <div>
     <div class="buttons-container">
-      <LanguageButton v-bind:key="language.id" v-for="language in languages" v-bind:name="language.name">
+      <LanguageButton v-bind:checked="selected ? language.id === selected.id : false" @onSelectLanguage="handleSelectLanguage"  v-bind:key="language.id" v-for="language in languages" v-bind:language="language">
       </LanguageButton>
     </div>
   </div>
@@ -16,7 +16,20 @@ export default {
     LanguageButton
   },
   props: {
-    languages: []
+    languages: [],
+    selected: Object
+  },
+  methods: {
+    handleSelectLanguage(language) {
+      this.$emit('onSelectLanguage', language);
+    }
   }
 }
 </script>
+
+<style scoped>
+  .buttons-container {
+    display: flex;
+    overflow: auto;
+  }
+</style>
