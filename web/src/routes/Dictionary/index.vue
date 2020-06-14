@@ -23,6 +23,9 @@
         <div class="right">
           <LanguageBar :selected="selectedToLanguage"   @onSelectLanguage="handleSelectToLanguage" :languages="languages"></LanguageBar>
         </div>
+        <div style="margin-top: 20px;">
+          <SearchableSelect></SearchableSelect>
+        </div>
       </div>
     </section>
 </template>
@@ -30,13 +33,15 @@
 <script>
 import LanguageBar from "./components/LanguageBar";
 import Input from "./components/Input";
+import SearchableSelect from "../../components/SearchableSelect";
 import { ADD_LANGUAGE, GET_LANGUAGES, SELECT_FROM_LANGUAGE, SELECT_TO_LANGUAGE, SEARCH_TRANSLATION } from "@/store/actions.type";
 
 export default {
   name: "Dictionary",
   components: {
     LanguageBar,
-    Input
+    Input,
+    SearchableSelect
   },
   
 
