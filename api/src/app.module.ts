@@ -14,13 +14,13 @@ import { LanguagesModule } from './languages/languages.module';
 
 @Module({
   imports: [AuthModule, UsersModule, LanguagesModule,
-  TypeOrmModule.forRoot({
+    TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+      host: 'postgres',
       port: 5432,
       username: 'postgres',
       password: 'example',
-      database: 'db',
+      database: 'postgres',
       entities: [User, Language, Translation, Word],
       synchronize: true
     })
