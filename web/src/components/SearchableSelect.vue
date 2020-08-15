@@ -47,7 +47,7 @@ export default {
 
     handleOnFocus(focused) {
       this.focused = focused;
-      if (!this.focused) {
+      if (!this.focused && this.selectedItem.id) {
         this.editMode = false;
       }
     },
@@ -73,7 +73,6 @@ export default {
     position: relative;
     width: 100%;
     max-width: 400px;
-    margin: 0 auto;
   }
   .dropdown-input, .dropdown-selected{
     width: 100%;

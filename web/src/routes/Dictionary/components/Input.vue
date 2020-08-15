@@ -1,8 +1,10 @@
 <template>
   <div class="input-wrap">
-    <textarea :value="value" @input="handleChange($event.target.value)" rows="1" autocapitalize="off" autocorrect="off">
+    <textarea class="content" v-if="editable" :value="value" @input="handleChange($event.target.value)" rows="1" autocapitalize="off" autocorrect="off">
     </textarea>
-
+    <div v-else class="content placeholder">
+      <span class="placeholder-text">{{placeholder}}</span>
+    </div>
   </div>
 </template>
 
@@ -11,9 +13,21 @@
 export default {
   name: 'Input',
 
+  props: {
+    placeholder: String,
+    editable: Boolean
+  },
+
+  data() {
+    return {
+      value: ''
+    }
+  },
+
   methods: {
-    handleChange(message) {
-      this.$emit('onChange', message);
+    handleChange(value) {
+      this.value = value;
+      this.$emit('onChange', value);
     } 
   }
 }
@@ -23,9 +37,11 @@ export default {
   .input-wrap {
     min-height: 72px;
     cursor: text;
+    box-shadow: 0 1px 4px 0 rgba(0,0,0,0.37);
+    position: relative;
   }
 
-  textarea {
+  .content {
     overflow: auto hidden;
     box-sizing: border-box;
     padding-bottom: 18px;
@@ -42,6 +58,14 @@ export default {
   textarea:focus {
     border-bottom: 0;
     outline: none !important;
+  }
+
+  .placeholder-text {
+    color: #878787;
+    font-size: 24px;
+    line-height: 32px;
+    position: absolute;
+    left: 28px;
   }
 
 </style>
