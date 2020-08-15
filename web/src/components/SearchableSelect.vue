@@ -1,6 +1,6 @@
 <template>
   <div class="dropdown">
-    <input ref="dropdowninput" v-if="Object.keys(selectedItem).length === 0" v-on:focus="handleOnFocus(true)" v-on:blur="handleOnFocus(false)" v-model.trim="inputValue" class="dropdown-input" type="text" placeholder="Search" />
+    <input ref="dropdowninput" v-if="editMode" v-on:focus="handleOnFocus(true)" v-on:blur="handleOnFocus(false)" v-model.trim="inputValue" class="dropdown-input" type="text" placeholder="Search" />
     <div v-else @click="handleResetItem" class="dropdown-selected">
       {{selectedItem.name}}
     </div>
@@ -16,20 +16,26 @@
 export default {
   name: 'SearchableSelect',
 
+  props: {
+    items: Array,
+    selected: {
+      type: Object,
+      default: () => ({})
+    }
+  },
+
   data() {
     return {
       inputValue: '',
-      items: [],
-      selectedItem: {},
+      editMode: true,
       focused: false,
+      selectedItem: this.selected,
+      onSelect: () => {},
     };
   },
 
   mounted() {
-    this.items = [
-      { id: 1, name: 'Russian' },
-      { id: 2, name: 'English' }
-    ];
+    this.editMode = Object.keys(this.selectedItem).length === 0;
   },
 
   methods: {
@@ -41,17 +47,22 @@ export default {
 
     handleOnFocus(focused) {
       this.focused = focused;
+      if (!this.focused) {
+        this.editMode = false;
+      }
     },
 
     handleSelectItem(item) {
       this.selectedItem = item;
+      this.editMode = false;
       this.inputValue = '';
+      this.$emit('onSelect', item);
     },
 
     handleResetItem() {
-      this.selectedItem = {};
-      this.$nextTick( () => this.$refs.dropdowninput.focus() );
-      this.$emit('onResetItem')
+      this.editMode = true;
+      this.$nextTick(() => this.$refs.dropdowninput.focus());
+      this.$emit('onReset')
     }
   }
 }

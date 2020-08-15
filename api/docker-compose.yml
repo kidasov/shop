@@ -10,7 +10,7 @@ services:
       - .:/home/bubu/shop/api
       - /home/bubu/shop/api/node_modules
     ports:
-      - 9229:9229
+      - 3000:3000
     command: npm run start:dev
     env_file:
       - .env
@@ -26,12 +26,13 @@ services:
       - webnet
   adminer:
     image: 'adminer:latest'
+    networks:
+      - webnet
     ports:
       - 8082:8080
     depends_on:
       - postgres
   postgres:
-    container_name: postgresdb
     image: postgres:12
     networks:
       - webnet

@@ -24,7 +24,7 @@
           <LanguageBar :selected="selectedToLanguage"   @onSelectLanguage="handleSelectToLanguage" :languages="languages"></LanguageBar>
         </div>
         <div style="margin-top: 20px;">
-          <SearchableSelect></SearchableSelect>
+          <SearchableSelect :items="languages" :selected="selectedFromLanguage" @onSelect="handSelectFromLanguage"></SearchableSelect>
         </div>
       </div>
     </section>

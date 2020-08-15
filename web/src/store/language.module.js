@@ -4,13 +4,12 @@ import { ADD_LANGUAGE_MUTATION, SET_LANGUAGES_MUTATION, SET_ERROR, SELECT_FROM_L
 
 const state = {
   languages: [],
-  selectedFromLanguage: null,
-  selectedToLanguage: null
+  selectedFromLanguage: {},
+  selectedToLanguage: {}
 };
 
 const getters = {
   languages(state) {
-    console.log('state', state);
     return state.languages;
   },
   selectedFromLanguage(state) {
@@ -25,7 +24,6 @@ const actions = {
   async [ADD_LANGUAGE](context, data) {
     try {
       const response = await api.post('/languages', { ...data })
-      console.log('data', response);
       return response;
     } catch (err) {
       context.commit(SET_ERROR, err);
@@ -34,7 +32,6 @@ const actions = {
   async [GET_LANGUAGES](context, data) {
     try {
       const response = await api.get('/languages', { ...data })
-      console.log('data', response);
       context.commit(SET_LANGUAGES_MUTATION, response);
     } catch (err) {
       context.commit(SET_ERROR, err);

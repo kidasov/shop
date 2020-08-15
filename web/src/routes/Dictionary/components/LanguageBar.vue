@@ -16,7 +16,7 @@ export default {
     LanguageButton
   },
   props: {
-    languages: [],
+    languages: Array,
     selected: Object
   },
   methods: {
