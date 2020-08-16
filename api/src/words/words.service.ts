@@ -2,6 +2,9 @@ import { Injectable } from "@nestjs/common";
 import { Word } from "./word.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
+import { CreateWordDto } from "./create-word.dto";
+import { Language } from "src/languages/language.entity";
+
 
 @Injectable()
 export class WordService {
@@ -9,11 +12,22 @@ export class WordService {
 
   constructor(
     @InjectRepository(Word)
-    private wordsRepository: Repository<Word>
+    private wordsRepository: Repository<Word>,
+    @InjectRepository(Language)
+    private languagesRepository: Repository<Language>
   ) {}
 
   findAll(): Promise<Word[]> {
     return this.wordsRepository.find();
+  }
+
+  async create(word: CreateWordDto) {
+    const searchedLanguage = await this.languagesRepository.findOne({ where: { name }});
+    if (searchedLanguage) {
+      const newWord = new Word();
+      newWord.text = word.text;
+      newWord.language = searchedLanguage;
+    }
   }
 
   async add(word: Word) {

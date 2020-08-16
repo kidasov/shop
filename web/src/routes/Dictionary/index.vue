@@ -128,6 +128,7 @@ export default {
   grid-column: 1 / 2;
   grid-row: 1 / 2;
   position: relative;
+  z-index: 1;
 }
 
 .left-input {
@@ -139,6 +140,7 @@ export default {
   grid-column: 2 / 3;
   grid-row: 1 / 2;
   position: relative;
+  z-index: 1;
 }
 
 .right-input {
