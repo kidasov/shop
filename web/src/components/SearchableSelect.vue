@@ -38,6 +38,13 @@ export default {
     this.editMode = Object.keys(this.selectedItem).length === 0;
   },
 
+  updated() {
+    this.selectedItem = this.selected;
+    if (!this.selectedItem.id) {
+      this.editMode = true;
+    }
+  },
+
   methods: {
     itemVisible(item) {
       let currentName = item.name.toLowerCase()

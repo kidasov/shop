@@ -10,7 +10,7 @@ const state = {
 
 const getters = {
   languages(state) {
-    return state.languages;
+    return state.languages.filter(language => language.id !== state.selectedFromLanguage.id && language.id !== state.selectedToLanguage);
   },
   selectedFromLanguage(state) {
     return state.selectedFromLanguage;
@@ -57,9 +57,15 @@ const mutations = {
   },
   [SELECT_FROM_LANGUAGE_MUTATION](state, language) {
     state.selectedFromLanguage = language;
+    if (language.id === state.selectedToLanguage.id) {
+      state.selectedToLanguage = {};
+    }
   },
   [SELECT_TO_LANGUAGE_MUTATION](state, language) {
     state.selectedToLanguage = language;
+    if (language.id === state.selectedFromLanguage.id) {
+      state.selectedFromLanguage = {};
+    }
   }
 };
 
