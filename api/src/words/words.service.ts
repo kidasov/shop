@@ -7,7 +7,7 @@ import { Language } from "src/languages/language.entity";
 
 
 @Injectable()
-export class WordService {
+export class WordsService {
   private readonly words: Word[];
 
   constructor(
@@ -23,11 +23,11 @@ export class WordService {
 
   async create(word: CreateWordDto) {
     const searchedLanguage = await this.languagesRepository.findOne({ where: { name }});
-    if (searchedLanguage) {
-      const newWord = new Word();
-      newWord.text = word.text;
-      newWord.language = searchedLanguage;
-    }
+    const newWord = new Word();
+    newWord.text = word.text;
+    newWord.language = searchedLanguage;
+    await this.wordsRepository.save(word);
+    return newWord;
   }
 
   async add(word: Word) {
@@ -37,5 +37,11 @@ export class WordService {
   async remove(text: string) {
     const deletedWord = await this.wordsRepository.findOne({ where: { text }});
     await this.wordsRepository.delete(deletedWord.id);
+  }
+
+  async find(text: string, languageId: number) {
+    const searchedWord = await this.wordsRepository.findOne({ where: { text, 'language.id': languageId }});
+    console.log('[word service: find searched word]', searchedWord);
+    return searchedWord;
   }
 }
