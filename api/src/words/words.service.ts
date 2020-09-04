@@ -3,7 +3,7 @@ import { Word } from "./word.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { CreateWordDto } from "./create-word.dto";
-import { Language } from "src/languages/language.entity";
+import { LanguageService } from "src/languages/languages.service";
 
 
 @Injectable()
@@ -13,8 +13,7 @@ export class WordsService {
   constructor(
     @InjectRepository(Word)
     private wordsRepository: Repository<Word>,
-    @InjectRepository(Language)
-    private languagesRepository: Repository<Language>
+    private languageService: LanguageService
   ) {}
 
   findAll(): Promise<Word[]> {
@@ -22,7 +21,7 @@ export class WordsService {
   }
 
   async create(word: CreateWordDto) {
-    const searchedLanguage = await this.languagesRepository.findOne({ where: { name }});
+    const searchedLanguage = await this.languageService.find(name);
     const newWord = new Word();
     newWord.text = word.text;
     newWord.language = searchedLanguage;

@@ -11,9 +11,15 @@ import { Word } from './words/word.entity';
 import { Translation } from './translations/translation.entity';
 import { Language } from './languages/language.entity';
 import { LanguagesModule } from './languages/languages.module';
+import { TranslationsController } from './translations/translations.controller';
+import { TranslationsModule } from './translations/translations.module';
 
 @Module({
-  imports: [AuthModule, UsersModule, LanguagesModule,
+  imports: [
+    AuthModule,
+    UsersModule,
+    LanguagesModule,
+    TranslationsModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'postgres',
@@ -22,11 +28,15 @@ import { LanguagesModule } from './languages/languages.module';
       password: 'example',
       database: 'postgres',
       entities: [User, Language, Translation, Word],
-      synchronize: true
-    })
+      synchronize: true,
+    }),
   ],
-  controllers: [AppController, LanguagesController, ProductsController],
+  controllers: [
+    AppController,
+    LanguagesController,
+    ProductsController,
+    TranslationsController,
+  ],
   providers: [AppService],
 })
-
 export class AppModule {}

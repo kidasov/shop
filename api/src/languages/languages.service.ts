@@ -28,4 +28,8 @@ export class LanguageService {
     const deletedLanguage = await this.languageRepository.findOne({ where: { name }});
     await this.languageRepository.delete(deletedLanguage.id);
   }
+
+  async find(name) {
+    return this.languageRepository.findOne({ where: { name }});
+  }
 }
