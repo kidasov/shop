@@ -11,14 +11,23 @@ export class TranslationsService {
   constructor(
     @InjectRepository(Translation)
     private translationsRepository: Repository<Translation>,
-    private wordsService: WordsService
+    private wordsService: WordsService,
   ) {}
 
   async find(translation: FindTranslationDto) {
-    const { text, fromLanguageId } = translation;
-    const searchedWord = await this.wordsService.find(text, fromLanguageId);
+    const { text, fromLanguageId, fromLanguageName } = translation;
+    const searchedWord = await this.wordsService.find(
+      text,
+      fromLanguageId,
+      fromLanguageName,
+    );
     if (searchedWord) {
-      const searchedTranslations = await this.translationsRepository.find({ where: { firstWord: searchedWord, 'secondWord.language.id': translation.toLanguageId }  })
+      const searchedTranslations = await this.translationsRepository.find({
+        where: {
+          firstWord: searchedWord,
+          'secondWord.language.id': translation.toLanguageId,
+        },
+      });
       console.log('searched translations', searchedTranslations);
       return searchedTranslations;
     }
@@ -27,14 +36,31 @@ export class TranslationsService {
   }
 
   async add(translation: AddTranslationDto) {
-    const { fromText, fromLanguageId, toText, toLanguageId } = translation;
-    let fromWord = await this.wordsService.find(fromText, fromLanguageId);
-    if (!fromWord) {      
-      fromWord = await this.wordsService.create({ text: fromText, languagedId: fromLanguageId });
+    const {
+      fromText,
+      fromLanguageId,
+      fromLanguageName,
+      toText,
+      toLanguageId,
+      toLanguageName,
+    } = translation;
+    let fromWord = await this.wordsService.find(
+      fromText,
+      fromLanguageId,
+      fromLanguageName,
+    );
+    if (!fromWord) {
+      fromWord = await this.wordsService.create({
+        text: fromText,
+        languagedId: fromLanguageId,
+      });
     }
-    let toWord = await this.wordsService.find(toText, toLanguageId);
+    let toWord = await this.wordsService.find(toText, toLanguageId, toLanguageName);
     if (!toWord) {
-      toWord = await this.wordsService.create({ text: toText, languagedId: toLanguageId });
+      toWord = await this.wordsService.create({
+        text: toText,
+        languagedId: toLanguageId,
+      });
     }
     const newTranslation = new Translation();
     newTranslation.firstWord = fromWord;

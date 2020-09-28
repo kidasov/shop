@@ -18,10 +18,9 @@ const getters = {
 
 const actions = {
   async [SEARCH_TRANSLATION](context, data) {
-    console.log('trying to get translation', data);
     const params = new URLSearchParams(data);
     try {
-      const response = await api.get(`/translations/translate${params}`);
+      const response = await api.get(`/translations/translate?${params}`);
       return response;
     } catch (err) {
       context.commit(SET_ERROR, err);

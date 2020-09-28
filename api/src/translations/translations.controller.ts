@@ -6,7 +6,7 @@ import { FindTranslationDto } from "./find-translation-dto";
 export class TranslationsController {
   constructor(private translationsService: TranslationsService) {}
 
-  @Get()
+  @Get('translate')
   async translate(@Body() findTranslationDto: FindTranslationDto) {
     const translations = await this.translationsService.find(findTranslationDto);
     console.log('translations', translations);

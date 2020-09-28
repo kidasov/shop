@@ -3,4 +3,6 @@ export class AddTranslationDto {
   toText: string;
   fromLanguageId: number;
   toLanguageId: number; 
+  fromLanguageName: string;
+  toLanguageName: string;
 }

@@ -106,7 +106,11 @@ export default {
     },
 
     handleSearchTranslation(word) {
-      this.$store.dispatch(SEARCH_TRANSLATION, word);
+      this.$store.dispatch(SEARCH_TRANSLATION, {
+        from: this.selectedFromLanguage.name,
+        to: this.selectedToLanguage.name,
+        word
+      });
     },
   },
 };

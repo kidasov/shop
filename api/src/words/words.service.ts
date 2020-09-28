@@ -38,8 +38,8 @@ export class WordsService {
     await this.wordsRepository.delete(deletedWord.id);
   }
 
-  async find(text: string, languageId: number) {
-    const searchedWord = await this.wordsRepository.findOne({ where: { text, 'language.id': languageId }});
+  async find(text: string, languageId: number, languageName: string) {
+    const searchedWord = await this.wordsRepository.findOne({ where: { text, 'language.id': languageId, 'language.name': languageName }});
     console.log('[word service: find searched word]', searchedWord);
     return searchedWord;
   }
