@@ -29,7 +29,7 @@ export class LanguageService {
     await this.languageRepository.delete(deletedLanguage.id);
   }
 
-  async find(name) {
-    return this.languageRepository.findOne({ where: { name }});
+  async find(id: number) {
+    return this.languageRepository.findOne({ where: { id }});
   }
 }

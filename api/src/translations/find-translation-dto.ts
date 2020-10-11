@@ -1,7 +1,7 @@
 export class FindTranslationDto {
-  text: string; 
-  fromLanguageId: number;
-  toLanguageId: number;
-  fromLanguageName: string;
-  toLanguageName: string;
+  word: string; 
+  fromId: number;
+  toId: number;
+  fromName: string;
+  toName: string;
 }

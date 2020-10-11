@@ -1,7 +1,7 @@
 <template>
-  <div class="button" role="button">
+  <div class="button" role="button" @click="handleClick">
     <div class="text">
-      Button
+      {{name}}
     </div>
   </div>
 </template>

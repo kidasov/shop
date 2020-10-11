@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, ManyToMany, JoinTable } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { Language } from '../languages/language.entity';
 import { Word } from '../words/word.entity';
 
@@ -7,11 +7,19 @@ export class Translation {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne(type => Word)
+  @ManyToOne(type => Word, { eager: true })
   @JoinColumn()
   firstWord: Word;
 
-  @OneToOne(type => Word)
+  @ManyToOne(type => Word, { eager: true })
   @JoinColumn()
   secondWord: Word;
+
+  @ManyToOne(type => Language)
+  @JoinColumn()
+  fromLanguage: Language;
+
+  @ManyToOne(type => Language)
+  @JoinColumn()
+  toLanguage: Language;
 }

@@ -1,10 +1,9 @@
-import { Injectable } from "@nestjs/common";
-import { Word } from "./word.entity";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
-import { CreateWordDto } from "./create-word.dto";
-import { LanguageService } from "src/languages/languages.service";
-
+import { Injectable } from '@nestjs/common';
+import { Word } from './word.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { CreateWordDto } from './create-word.dto';
+import { LanguageService } from 'src/languages/languages.service';
 
 @Injectable()
 export class WordsService {
@@ -13,7 +12,7 @@ export class WordsService {
   constructor(
     @InjectRepository(Word)
     private wordsRepository: Repository<Word>,
-    private languageService: LanguageService
+    private languageService: LanguageService,
   ) {}
 
   findAll(): Promise<Word[]> {
@@ -21,11 +20,13 @@ export class WordsService {
   }
 
   async create(word: CreateWordDto) {
-    const searchedLanguage = await this.languageService.find(name);
+    const searchedLanguage = await this.languageService.find(word.languagedId);
     const newWord = new Word();
     newWord.text = word.text;
     newWord.language = searchedLanguage;
-    await this.wordsRepository.save(word);
+    console.log("Creating new word", newWord);
+    const createdWord = this.wordsRepository.create(newWord);
+    await this.wordsRepository.save(createdWord);
     return newWord;
   }
 
@@ -34,12 +35,15 @@ export class WordsService {
   }
 
   async remove(text: string) {
-    const deletedWord = await this.wordsRepository.findOne({ where: { text }});
+    const deletedWord = await this.wordsRepository.findOne({ where: { text } });
     await this.wordsRepository.delete(deletedWord.id);
   }
 
-  async find(text: string, languageId: number, languageName: string) {
-    const searchedWord = await this.wordsRepository.findOne({ where: { text, 'language.id': languageId, 'language.name': languageName }});
+  async find(text: string, languageId: number) {
+    console.log('text', text, languageId);
+    const searchedWord = await this.wordsRepository.findOne({
+      where: { text, languageId: languageId },
+    });
     console.log('[word service: find searched word]', searchedWord);
     return searchedWord;
   }

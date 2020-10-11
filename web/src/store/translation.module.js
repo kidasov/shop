@@ -1,4 +1,4 @@
-import { SEARCH_TRANSLATION } from './actions.type';
+import { ADD_TRANSLATION, SEARCH_TRANSLATION } from './actions.type';
 import { SEARCH_TRANSLATION_MUTATION, SET_ERROR } from './mutations.type';
 import api from '../api';
 
@@ -13,6 +13,9 @@ const getters = {
   },
   translations(state) {
     return state.translations;
+  },
+  firstTranslation(state) {
+    return state.translations ? state.translations[0] : null;
   }
 };
 
@@ -21,7 +24,17 @@ const actions = {
     const params = new URLSearchParams(data);
     try {
       const response = await api.get(`/translations/translate?${params}`);
+      context.commit(SEARCH_TRANSLATION_MUTATION, response);
       return response;
+    } catch (err) {
+      context.commit(SET_ERROR, err);
+    }
+  },
+
+  async [ADD_TRANSLATION](context, data) {
+    try {
+      const translation = await api.post('/translations/add', {...data});
+      console.log('translation added', translation);
     } catch (err) {
       context.commit(SET_ERROR, err);
     }

@@ -27,7 +27,7 @@
         </div>
       </div>
       <div class="left-input">
-        <Input editable="true" @onChange="handleSearchTranslation" />
+        <Input v-bind:editable="true" @onChange="handleSearchTranslation" />
       </div>
       <div class="right-select">
         <div class="select-wrapper">
@@ -40,10 +40,18 @@
         </div>
       </div>
       <div class="right-input">
-        <Input placeholder="Translation" @onChange="handleSearchTranslation" />
+        <Input v-bind:editable="editableTranslationInput" :value="translation" placeholder="Translation" ref="translationInput" @onChange="handleSetTranslation" />
       </div>
-      <div class="right-button">
-        <Button></Button>
+      <div class="right-buttons">
+        <table>
+          <tbody>
+            <tr v-for="translation in translations" :key="translation.id">
+              <td>{{translation.secondWord.text}}</td>
+              <td>{{translation.firstWord.text}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <Button name="Add translation" v-if="showAddTranslationButton" @onClick="handleAddTranslation"></Button>
       </div>
     </div>
   </section>
@@ -59,6 +67,7 @@ import {
   SELECT_FROM_LANGUAGE,
   SELECT_TO_LANGUAGE,
   SEARCH_TRANSLATION,
+  ADD_TRANSLATION
 } from "@/store/actions.type";
 
 export default {
@@ -72,12 +81,20 @@ export default {
   data() {
     return {
       language: null,
+      showAddTranslationButton: false,
+      editableTranslationInput: false,
+      word: '',
+      translationWord: '',
+      translation: ''
     };
   },
 
   computed: {
     languages() {
       return this.$store.getters.languages;
+    },
+    translations() {
+      return this.$store.getters.translations;
     },
     selectedFromLanguage() {
       return this.$store.getters.selectedFromLanguage;
@@ -105,13 +122,42 @@ export default {
       this.$store.dispatch(SELECT_TO_LANGUAGE, language);
     },
 
-    handleSearchTranslation(word) {
-      this.$store.dispatch(SEARCH_TRANSLATION, {
-        from: this.selectedFromLanguage.name,
-        to: this.selectedToLanguage.name,
+    async handleSearchTranslation(word) {
+      this.word = word;
+      const translations = this.$store.dispatch(SEARCH_TRANSLATION, {
+        fromName: this.selectedFromLanguage.name,
+        toName: this.selectedToLanguage.name,
+        fromId: this.selectedFromLanguage.id,
+        toId: this.selectedToLanguage.id,
         word
       });
+
+      if (!translations.length) {
+        this.showAddTranslationButton = true;
+      }
+
+      console.log('translation', translations);
     },
+
+    handleAddTranslation() {
+      if (!this.translationWord) {
+        this.editableTranslationInput = true;
+        this.$refs.translationInput.focus();
+      } else {
+        this.$store.dispatch(ADD_TRANSLATION, {
+          fromText: this.word,
+          toText: this.translationWord,
+          fromId: this.selectedFromLanguage.id,
+          toId: this.selectedToLanguage.id,
+          fromName: this.selectedFromLanguage.name,
+          toName: this.selectedToLanguage.name
+        })
+      }
+    },
+
+    handleSetTranslation(translationWord) {
+      this.translationWord = translationWord;
+    }
   },
 };
 </script>
@@ -152,7 +198,7 @@ export default {
   grid-row: 2 / 3;
 }
 
-.right-button {
+.right-buttons {
   grid-column: 2 / 3;
   grid-row: 3 / 4;
 }

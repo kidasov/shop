@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, PayloadTooLargeException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { FindTranslationDto } from './find-translation-dto';
 import { AddTranslationDto } from './add-translation-dto';
 import { Translation } from './translation.entity';
 import { WordsService } from 'src/words/words.service';
+import { Language } from 'src/languages/language.entity';
 
 @Injectable()
 export class TranslationsService {
@@ -15,58 +16,67 @@ export class TranslationsService {
   ) {}
 
   async find(translation: FindTranslationDto) {
-    const { text, fromLanguageId, fromLanguageName } = translation;
+    const { word: text, fromId, toId } = translation;
+    console.log('text', text, fromId, translation);
     const searchedWord = await this.wordsService.find(
       text,
-      fromLanguageId,
-      fromLanguageName,
+      fromId
     );
     if (searchedWord) {
       const searchedTranslations = await this.translationsRepository.find({
         where: {
-          firstWord: searchedWord,
-          'secondWord.language.id': translation.toLanguageId,
+          firstWordId: searchedWord.id,
+          toLanguageId: toId
         },
       });
       console.log('searched translations', searchedTranslations);
       return searchedTranslations;
     }
 
-    return null;
+    return [];
   }
 
   async add(translation: AddTranslationDto) {
     const {
       fromText,
-      fromLanguageId,
-      fromLanguageName,
+      fromId,
       toText,
-      toLanguageId,
-      toLanguageName,
+      toId
     } = translation;
     let fromWord = await this.wordsService.find(
       fromText,
-      fromLanguageId,
-      fromLanguageName,
+      fromId,
     );
+
+    console.log(fromWord);
+
     if (!fromWord) {
       fromWord = await this.wordsService.create({
         text: fromText,
-        languagedId: fromLanguageId,
+        languagedId: fromId,
       });
     }
-    let toWord = await this.wordsService.find(toText, toLanguageId, toLanguageName);
+    let toWord = await this.wordsService.find(toText, toId);
     if (!toWord) {
       toWord = await this.wordsService.create({
         text: toText,
-        languagedId: toLanguageId,
+        languagedId: toId,
       });
     }
+    
+    const fromLanguage = new Language();
+    fromLanguage.id = fromId;
+
+    const toLanguage = new Language();
+    toLanguage.id = toId;
+
     const newTranslation = new Translation();
     newTranslation.firstWord = fromWord;
     newTranslation.secondWord = toWord;
-    await this.translationsRepository.save(newTranslation);
+    newTranslation.fromLanguage = fromLanguage;
+    newTranslation.toLanguage = toLanguage;
 
+    await this.translationsRepository.insert(this.translationsRepository.create(newTranslation));
     return newTranslation;
   }
 }

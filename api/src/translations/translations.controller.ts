@@ -1,15 +1,22 @@
-import { Controller, Get, Body } from "@nestjs/common";
+import { Controller, Get, Body, Post, Req } from "@nestjs/common";
 import { TranslationsService } from "./translations.service";
-import { FindTranslationDto } from "./find-translation-dto";
+import { AddTranslationDto } from "./add-translation-dto";
+import { Request } from 'express';
 
 @Controller('translations')
 export class TranslationsController {
   constructor(private translationsService: TranslationsService) {}
 
   @Get('translate')
-  async translate(@Body() findTranslationDto: FindTranslationDto) {
-    const translations = await this.translationsService.find(findTranslationDto);
-    console.log('translations', translations);
+  async translate(@Req() request: Request) {
+    const { query } = request;
+    const translations = await this.translationsService.find(query);
     return translations;
+  }
+
+  @Post('add')
+  async addTranslation(@Body() addTranslationDto: AddTranslationDto) {
+    const translation = await this.translationsService.add(addTranslationDto);
+    return translation;
   }
 }
