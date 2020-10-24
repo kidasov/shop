@@ -44,7 +44,6 @@ export class WordsService {
     const searchedWord = await this.wordsRepository.findOne({
       where: { text, languageId: languageId },
     });
-    console.log('[word service: find searched word]', searchedWord);
     return searchedWord;
   }
 }

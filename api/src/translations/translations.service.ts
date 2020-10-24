@@ -25,8 +25,12 @@ export class TranslationsService {
     if (searchedWord) {
       const searchedTranslations = await this.translationsRepository.find({
         where: {
-          firstWordId: searchedWord.id,
-          toLanguageId: toId
+          firstWord: {
+            id: searchedWord.id
+          },
+          toLanguage: {
+            id: toId
+          }
         },
       });
       console.log('searched translations', searchedTranslations);

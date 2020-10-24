@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { Language } from '../languages/language.entity';
+import { Translation } from 'src/translations/translation.entity';
 
 @Entity()
 export class Word {
@@ -12,4 +13,8 @@ export class Word {
   @ManyToOne(type => Language, language => language.words, { eager: true } )
   @JoinColumn()
   language: Language;
+
+  @OneToMany(type => Translation, translation => translation.firstWord)
+  @JoinColumn()
+  translations: Translation[];
 }
