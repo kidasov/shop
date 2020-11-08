@@ -40,18 +40,28 @@
         </div>
       </div>
       <div class="right-input">
-        <Input v-bind:editable="editableTranslationInput" :value="translation" placeholder="Translation" ref="translationInput" @onChange="handleSetTranslation" />
+        <Input
+          v-bind:editable="false"
+          :defaultValue="translation"
+          :placeholder=placeholder
+          ref="translationInput"
+        />
+      </div>
+      <div class="add-translation-input" v-show="showAddTranslationButton">
+        <AddTranslationButton
+          placeholder="Add translation"
+          @onClick="handleAddTranslation"
+        />
       </div>
       <div class="right-buttons">
         <table>
           <tbody>
             <tr v-for="translation in translations" :key="translation.id">
-              <td>{{translation.secondWord.text}}</td>
-              <td>{{translation.firstWord.text}}</td>
+              <td>{{ translation.secondWord.text }}</td>
+              <td>{{ translation.firstWord.text }}</td>
             </tr>
           </tbody>
         </table>
-        <Button name="Add translation" v-if="showAddTranslationButton" @onClick="handleAddTranslation"></Button>
       </div>
     </div>
   </section>
@@ -60,32 +70,33 @@
 <script>
 import Input from "./components/Input";
 import SearchableSelect from "../../components/SearchableSelect";
-import Button from "../../components/Button";
+import AddTranslationButton from "./components/AddTranslationInput";
 import {
   ADD_LANGUAGE,
   GET_LANGUAGES,
   SELECT_FROM_LANGUAGE,
   SELECT_TO_LANGUAGE,
   SEARCH_TRANSLATION,
-  ADD_TRANSLATION
+  ADD_TRANSLATION,
 } from "@/store/actions.type";
+
+import { TRANSLATION, NO_TRANSLATION } from "@/consts/translation";
 
 export default {
   name: "Dictionary",
   components: {
     Input,
-    Button,
     SearchableSelect,
+    AddTranslationButton,
   },
 
   data() {
     return {
       language: null,
       showAddTranslationButton: false,
-      editableTranslationInput: false,
-      word: '',
-      translationWord: '',
-      translation: ''
+      word: "",
+      translation: "",
+      placeholder: TRANSLATION,
     };
   },
 
@@ -124,40 +135,40 @@ export default {
 
     async handleSearchTranslation(word) {
       this.word = word;
-      const translations = this.$store.dispatch(SEARCH_TRANSLATION, {
+      const translations = await this.$store.dispatch(SEARCH_TRANSLATION, {
         fromName: this.selectedFromLanguage.name,
         toName: this.selectedToLanguage.name,
         fromId: this.selectedFromLanguage.id,
         toId: this.selectedToLanguage.id,
-        word
+        word,
       });
+
+      console.log('translations', translations.length);
 
       if (!translations.length) {
         this.showAddTranslationButton = true;
-      }
-
-      console.log('translation', translations);
-    },
-
-    handleAddTranslation() {
-      if (!this.translationWord) {
-        this.editableTranslationInput = true;
-        this.$refs.translationInput.focus();
+        this.placeholder = NO_TRANSLATION;
+        this.translation = '';
       } else {
-        this.$store.dispatch(ADD_TRANSLATION, {
-          fromText: this.word,
-          toText: this.translationWord,
-          fromId: this.selectedFromLanguage.id,
-          toId: this.selectedToLanguage.id,
-          fromName: this.selectedFromLanguage.name,
-          toName: this.selectedToLanguage.name
-        })
+        this.showAddTranslationButton = false;
+        this.placeholder = TRANSLATION;
+        this.translation = translations[0].secondWord.text;
+        console.log('translation', this.translation)
       }
+
+      console.log("translation", translations);
     },
 
-    handleSetTranslation(translationWord) {
-      this.translationWord = translationWord;
-    }
+    handleAddTranslation(translationWord) {
+      this.$store.dispatch(ADD_TRANSLATION, {
+        fromText: this.word,
+        toText: translationWord,
+        fromId: this.selectedFromLanguage.id,
+        toId: this.selectedToLanguage.id,
+        fromName: this.selectedFromLanguage.name,
+        toName: this.selectedToLanguage.name,
+      });
+    },
   },
 };
 </script>
@@ -207,5 +218,10 @@ export default {
   position: absolute;
   width: 100%;
   bottom: 0;
+}
+
+.add-translation-input {
+  grid-column: 2 / 3;
+  grid-row: 3 / 4;
 }
 </style>

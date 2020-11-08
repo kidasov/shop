@@ -1,8 +1,8 @@
 <template>
   <div class="button" role="button" @click="handleClick">
-    <div class="text">
+    <span class="text">
       {{name}}
-    </div>
+    </span>
   </div>
 </template>
 
@@ -24,10 +24,12 @@ export default {
 
 <style scoped>
   .button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: #4285f4;
     border-radius: 4px;
     cursor: pointer;
-    display: inline-block;
     padding: 12px 40px;
   }
 

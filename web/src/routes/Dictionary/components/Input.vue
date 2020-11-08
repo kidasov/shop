@@ -12,7 +12,8 @@
     >
     </textarea>
     <div v-else class="content placeholder">
-      <span class="placeholder-text">{{ placeholder }}</span>
+      <span class="value" v-if="!!value">{{ value }}</span> 
+      <span class="placeholder-text" v-if="!value" >{{ placeholder }}</span>
     </div>
   </div>
 </template>
@@ -24,6 +25,15 @@ export default {
   props: {
     placeholder: String,
     editable: Boolean,
+    defaultValue: String
+  },
+
+  watch: {
+    defaultValue(next, prev) {
+      if (next != prev) {
+        this.value = next;
+      }
+    }
   },
 
   data() {
@@ -76,6 +86,11 @@ textarea:focus {
   color: #878787;
   font-size: 24px;
   line-height: 32px;
+  position: absolute;
+  left: 28px;
+}
+
+.value {
   position: absolute;
   left: 28px;
 }
