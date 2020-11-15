@@ -1,6 +1,8 @@
 import api from '../api';
 import { ADD_LANGUAGE, GET_LANGUAGES, SELECT_FROM_LANGUAGE, SELECT_TO_LANGUAGE } from './actions.type';
 import { ADD_LANGUAGE_MUTATION, SET_LANGUAGES_MUTATION, SET_ERROR, SELECT_FROM_LANGUAGE_MUTATION, SELECT_TO_LANGUAGE_MUTATION  } from './mutations.type';
+import LocalStorage from "@/services/storage";
+import { FROM_LANGUAGE, TO_LANGUAGE } from "@/consts/preferences";
 
 const state = {
   languages: [],
@@ -56,12 +58,16 @@ const mutations = {
     state.languages = languages;
   },
   [SELECT_FROM_LANGUAGE_MUTATION](state, language) {
+    LocalStorage.setItem(FROM_LANGUAGE, language);
+
     state.selectedFromLanguage = language;
     if (language.id === state.selectedToLanguage.id) {
       state.selectedToLanguage = {};
     }
   },
   [SELECT_TO_LANGUAGE_MUTATION](state, language) {
+    LocalStorage.setItem(TO_LANGUAGE, language);
+
     state.selectedToLanguage = language;
     if (language.id === state.selectedFromLanguage.id) {
       state.selectedFromLanguage = {};
