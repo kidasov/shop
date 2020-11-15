@@ -27,15 +27,11 @@ export default {
   data() {
     return {
       inputValue: '',
-      editMode: true,
+      editMode: false,
       focused: false,
       selectedItem: this.selected,
       onSelect: () => {},
     };
-  },
-
-  mounted() {
-    this.editMode = Object.keys(this.selectedItem).length === 0;
   },
 
   updated() {

@@ -1,4 +1,4 @@
-export default class LocalStorage {
+class LocalStorage {
   storage = window.localStorage;
 
   setItem(key, value) {
@@ -9,3 +9,5 @@ export default class LocalStorage {
     return this.storage.getItem(key);
   }
 }
+
+export default new LocalStorage();
