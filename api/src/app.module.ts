@@ -13,6 +13,7 @@ import { LanguagesModule } from './languages/languages.module';
 import { TranslationsController } from './translations/translations.controller';
 import { TranslationsModule } from './translations/translations.module';
 import { User } from './users/user.entity';
+import { AuthController } from './auth/auth.controller';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { User } from './users/user.entity';
     LanguagesController,
     ProductsController,
     TranslationsController,
+    AuthController
   ],
   providers: [AppService],
 })

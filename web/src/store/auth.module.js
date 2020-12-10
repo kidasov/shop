@@ -3,7 +3,7 @@
 import api from '../api';
 
 import {
-  LOGIN
+  LOGIN, REGISTER
 } from "./actions.type";
 import { SET_AUTH, PURGE_AUTH, SET_ERROR } from "./mutations.type";
 
@@ -29,6 +29,15 @@ const actions = {
       context.commit(SET_AUTH, data.user);
     } catch (err) {
       context.commit(SET_ERROR, err)
+    }
+  },
+
+  async [REGISTER](context, credentials) {
+    try {
+      console.log('data', credentials);
+      const data = await api.post('/auth/register', { ...credentials });
+    } catch (err) {
+      context.commit(SET_ERROR, err);
     }
   }
 }
