@@ -8,6 +8,10 @@ class LocalStorage {
   getItem(key) {
     return this.storage.getItem(key);
   }
+
+  removeItem(key) {
+    this.storage.removeItem(key);
+  }
 }
 
 export default new LocalStorage();

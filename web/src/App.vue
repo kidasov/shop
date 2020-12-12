@@ -1,13 +1,41 @@
 <template>
   <div id="app">
     <router-view></router-view>
+    <div v-if="isAuthenticated">
+      <router-link to="/dictionary" >
+        You are logged in as {{currentUser.name}} {{currentUser.email}} ! Go to dictionary
+      </router-link>
+      <div>
+        <button @click="handleLogout">
+          <span>Logout</span>
+        </button>
+      </div>
+    </div>    
   </div>
 </template>
 
 <script>
+import { LOGOUT } from "@/store/actions.type";
+
 
 export default {
-  name: 'App'
+  name: 'App',
+
+  computed: {
+    isAuthenticated() {
+      return this.$store.getters.isAuthenticated;
+    },
+
+    currentUser() {
+      return this.$store.getters.currentUser;
+    }
+  },
+
+  methods: {
+    handleLogout() {
+      this.$store.dispatch(LOGOUT);
+    }
+  }
 }
 </script>
 

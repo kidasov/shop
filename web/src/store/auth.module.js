@@ -3,12 +3,14 @@
 import api from '../api';
 
 import {
-  LOGIN, REGISTER
+  LOGIN, REGISTER, LOGOUT
 } from "./actions.type";
 import { SET_AUTH, PURGE_AUTH, SET_ERROR } from "./mutations.type";
+import LocalStorage from "@/services/storage";
 
 const state = {
   errors: null,
+  token: '',
   user: {},
   isAuthenticated: false
 };
@@ -26,7 +28,7 @@ const actions = {
   async [LOGIN](context, credentials) {
     try {
       const data = await api.post('/auth/login', { ...credentials })
-      context.commit(SET_AUTH, data.user);
+      context.commit(SET_AUTH, data);
     } catch (err) {
       context.commit(SET_ERROR, err)
     }
@@ -34,25 +36,39 @@ const actions = {
 
   async [REGISTER](context, credentials) {
     try {
-      console.log('data', credentials);
       const data = await api.post('/auth/register', { ...credentials });
     } catch (err) {
       context.commit(SET_ERROR, err);
     }
-  }
+  },
+
+  async [LOGOUT](context) {
+    try {
+      context.commit(PURGE_AUTH);
+    } catch (err) {
+      context.commit(SET_ERROR, err);
+    }
+  },
 }
 
 const mutations = {
   [SET_ERROR](state, error) {
     state.errors = error;
+    LocalStorage.removeItem('token');
   },
-  [SET_AUTH](state, user) {
-    state.isAuthenticated = true;
+  [SET_AUTH](state, data) {
+    const { access_token, ...user } = data;
+    LocalStorage.setItem('token', access_token);
+
+    state.token = access_token;
     state.user = user;
+    state.isAuthenticated = true;
     state.errors = {};
   },
   [PURGE_AUTH](state) {
+    LocalStorage.removeItem('token');
     state.isAuthenticated = false;
+    state.token = '';
     state.user = {};
     state.errors = {};
   }
