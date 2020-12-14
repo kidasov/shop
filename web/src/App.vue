@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <Menu/>
     <router-view></router-view>
     <div v-if="isAuthenticated">
       <router-link to="/dictionary" >
@@ -16,10 +17,14 @@
 
 <script>
 import { LOGOUT } from "@/store/actions.type";
+import Menu from "./components/Menu";
 
 
 export default {
   name: 'App',
+  components: {
+    Menu
+  },
 
   computed: {
     isAuthenticated() {
