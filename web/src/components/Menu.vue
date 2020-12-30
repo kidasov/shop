@@ -1,11 +1,10 @@
 <template>
   <div>
     <div
-      :class="show ? 'visible' : 'invisible'"
+      :class="opened ? 'visible' : 'invisible'"
       class="navigation"
-      v-click-outside="outside"
-      @click="inside"
     >
+      <span>{{opened}}</span>
       <span>Menu</span>
     </div>
   </div>
@@ -13,9 +12,11 @@
 
 <script>
 export default {
+  props: ['opened'],
+
   data() {
     return {
-      show: true,
+      show: false,
     };
   },
 
@@ -25,40 +26,7 @@ export default {
     },
     outside() {
       this.show = false;
-    },
-  },
-
-  directives: {
-    "click-outside": {
-      bind: function(el, binding, vNode) {
-        // Provided expression must evaluate to a function.
-        if (typeof binding.value !== "function") {
-          const compName = vNode.context.name;
-          let warn = `[Vue-click-outside:] provided expression '${binding.expression}' is not a function, but has to be`;
-          if (compName) {
-            warn += `Found in component '${compName}'`;
-          }
-
-          console.warn(warn);
-        }
-        // Define Handler and cache it on the element
-        const bubble = binding.modifiers.bubble;
-        const handler = (e) => {
-          if (bubble || (!el.contains(e.target) && el !== e.target)) {
-            binding.value(e);
-          }
-        };
-        el.__vueClickOutside__ = handler;
-
-        // add Event Listeners
-        document.addEventListener("click", handler);
-      },
-
-      unbind: function(el) {
-        // Remove Event Listeners
-        document.removeEventListener("click", el.__vueClickOutside__);
-        el.__vueClickOutside__ = null;
-      },
+      console.log('outside click', this.show);
     },
   },
 };
@@ -79,23 +47,18 @@ export default {
   overflow-x: hidden;
   position: absolute;
   z-index: 990;
-  will-change: visibility;
-  visibility: visible;
   display: -webkit-flex;
   display: flex;
   flex-direction: column;
-  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-    visibility 0s linear 0.25s;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.28);
 }
 
 .visible {
   transform: translateX(0);
-  visibility: visible;
 }
 
 .invisible {
   transform: translateX(-280px);
-  visibility: hidden;
 }
 </style>

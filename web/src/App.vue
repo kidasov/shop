@@ -1,6 +1,15 @@
 <template>
   <div id="app">
-    <Menu/>
+    <header>
+      <menu-icon @click="handlePressMenu" />
+      <div
+        v-click-outside="handlePressMenuOutside"
+        @click="handlePressMenuInside"
+       >
+        <Menu :opened="isMenuOpened"/>
+      </div>
+      <div>Best web page</div>
+    </header>
     <router-view></router-view>
     <div v-if="isAuthenticated">
       <router-link to="/dictionary" >
@@ -18,12 +27,20 @@
 <script>
 import { LOGOUT } from "@/store/actions.type";
 import Menu from "./components/Menu";
+import MenuIcon from 'vue-material-design-icons/Menu.vue';
 
 
 export default {
   name: 'App',
   components: {
-    Menu
+    Menu,
+    MenuIcon
+  },
+  
+  data() {
+    return {
+      isMenuOpened: true
+    }
   },
 
   computed: {
@@ -33,14 +50,64 @@ export default {
 
     currentUser() {
       return this.$store.getters.currentUser;
+    },
+
+    isOpened() {
+      return this.isMenuOpened;
     }
   },
 
   methods: {
     handleLogout() {
       this.$store.dispatch(LOGOUT);
-    }
-  }
+    },
+    handlePressMenu(e) {
+      console.log('click menu icon', e)
+      this.isMenuOpened = !this.isMenuOpened;
+      e.stopPropagation();
+    },
+    handlePressMenuInside() {
+      this.isMenuOpened = true;
+    },
+    handlePressMenuOutside() {
+      this.isMenuOpened = false;
+    },
+  },
+
+
+  directives: {
+    "click-outside": {
+      bind: function(el, binding, vNode) {
+        // Provided expression must evaluate to a function.
+        if (typeof binding.value !== "function") {
+          const compName = vNode.context.name;
+          let warn = `[Vue-click-outside:] provided expression '${binding.expression}' is not a function, but has to be`;
+          if (compName) {
+            warn += `Found in component '${compName}'`;
+          }
+
+          console.warn(warn);
+        }
+        // Define Handler and cache it on the element
+        const bubble = binding.modifiers.bubble;
+        const handler = (e) => {
+          if (bubble || (!el.contains(e.target) && el !== e.target)) {
+            binding.value(e);
+          }
+        };
+        el.__vueClickOutside__ = handler;
+
+        // add Event Listeners
+        document.addEventListener("click", handler);
+      },
+
+      unbind: function(el) {
+        // Remove Event Listeners
+        document.removeEventListener("click", el.__vueClickOutside__);
+        el.__vueClickOutside__ = null;
+      },
+    },
+  },
 }
 </script>
 
