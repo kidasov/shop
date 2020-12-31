@@ -4,6 +4,13 @@
       :class="opened ? 'visible' : 'invisible'"
       class="navigation"
     >
+      <div class="header">
+        <div class="title-container">
+          <div class="title">
+            <span>Dictionary</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -24,7 +31,6 @@ export default {
     },
     outside() {
       this.show = false;
-      console.log('outside click', this.show);
     },
   },
 };
@@ -58,5 +64,30 @@ export default {
 
 .invisible {
   transform: translateX(-280px);
+}
+
+.header {
+  border-bottom: 1px rgba(0,0,0,0.12) solid;
+}
+
+.title-container {
+  padding: 20px 8px 20px 24px;
+  top: 2px;
+  height: 48px;
+  min-height: 28px;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.title {
+  position: relative;
+}
+
+.title > span {
+  color: #5f6368;
+  opacity: 1;
+  font-size: 22px;
+  line-height: 24px;
+  top: 2px;
 }
 </style>
