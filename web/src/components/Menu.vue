@@ -4,8 +4,6 @@
       :class="opened ? 'visible' : 'invisible'"
       class="navigation"
     >
-      <span>{{opened}}</span>
-      <span>Menu</span>
     </div>
   </div>
 </template>
@@ -46,8 +44,8 @@ export default {
   overflow-y: auto;
   overflow-x: hidden;
   position: absolute;
+  left: 0;
   z-index: 990;
-  display: -webkit-flex;
   display: flex;
   flex-direction: column;
   transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
