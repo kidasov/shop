@@ -1,15 +1,6 @@
 <template>
   <div id="app">
-    <header>
-      <menu-icon @click="handlePressMenu" />
-      <div
-        v-click-outside="handlePressMenuOutside"
-        @click="handlePressMenuInside"
-       >
-        <Menu :opened="isMenuOpened"/>
-      </div>
-      <div>Best web page</div>
-    </header>
+    <Header/>
     <router-view></router-view>
     <div v-if="isAuthenticated">
       <router-link to="/dictionary" >
@@ -26,21 +17,14 @@
 
 <script>
 import { LOGOUT } from "@/store/actions.type";
-import Menu from "./components/Menu";
-import MenuIcon from 'vue-material-design-icons/Menu.vue';
+
+import Header from './components/Header';
 
 
 export default {
   name: 'App',
   components: {
-    Menu,
-    MenuIcon
-  },
-  
-  data() {
-    return {
-      isMenuOpened: true
-    }
+    Header
   },
 
   computed: {
@@ -50,28 +34,13 @@ export default {
 
     currentUser() {
       return this.$store.getters.currentUser;
-    },
-
-    isOpened() {
-      return this.isMenuOpened;
     }
   },
 
   methods: {
     handleLogout() {
       this.$store.dispatch(LOGOUT);
-    },
-    handlePressMenu(e) {
-      console.log('click menu icon', e)
-      this.isMenuOpened = !this.isMenuOpened;
-      e.stopPropagation();
-    },
-    handlePressMenuInside() {
-      this.isMenuOpened = true;
-    },
-    handlePressMenuOutside() {
-      this.isMenuOpened = false;
-    },
+    }
   },
 
 
