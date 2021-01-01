@@ -11,6 +11,16 @@
           </div>
         </div>
       </div>
+      <div class="content">
+        <nav>
+          <div class="menu-items">
+            <a class="menu-item" href="#">Translate</a>
+            <a class="menu-item" href="#">Profile</a>
+            <a class="menu-item" href="#">About</a>
+            <a class="menu-item" href="#">Login</a>
+          </div>
+        </nav>
+      </div>
     </div>
   </div>
 </template>
@@ -89,5 +99,28 @@ export default {
   font-size: 22px;
   line-height: 24px;
   top: 2px;
+}
+
+.menu-items {
+  padding: 0 0 8px 0;
+}
+
+.menu-item {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  line-height: 40px;
+  overflow: hidden;
+  padding: 0 4px 4px 24px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  vertical-align: top;
+  text-decoration: none;
+  color: #000;
+}
+
+.menu-item:hover {
+  background-color: rgba(0, 0, 0, 0.05);
 }
 </style>
