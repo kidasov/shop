@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <Header/>
+    <Input :inputProps="inputProps" placeholder="Username" />
     <router-view></router-view>
     <div v-if="isAuthenticated">
       <router-link to="/dictionary" >
@@ -19,12 +20,14 @@
 import { LOGOUT } from "@/store/actions.type";
 
 import Header from './components/Header';
+import Input from './components/Input';
 
 
 export default {
   name: 'App',
   components: {
-    Header
+    Header,
+    Input
   },
 
   computed: {
@@ -34,6 +37,12 @@ export default {
 
     currentUser() {
       return this.$store.getters.currentUser;
+    },
+
+    inputProps() {
+      return {
+        type: "text",
+      }
     }
   },
 
