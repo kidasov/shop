@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header/>
-    <Input :inputProps="inputProps" placeholder="Username" />
+    <Input :inputProps="inputProps" placeholder="Username" v-model="inputValue" />
     <router-view></router-view>
     <div v-if="isAuthenticated">
       <router-link to="/dictionary" >
@@ -44,6 +44,12 @@ export default {
         type: "text",
       }
     }
+  },
+
+  data() {
+    return {
+      inputValue: 'Hello'
+    };
   },
 
   methods: {

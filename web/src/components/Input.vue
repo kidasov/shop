@@ -2,8 +2,14 @@
   <div class="container">
     <div class="content">
       <div class="input-container">
-        <input class="input-wrapper input" v-bind="inputProps" />
-        <div class="placeholder">
+        <input
+          class="input-wrapper input" v-bind="inputProps"
+          v-bind:value="value"
+          v-on:input="$emit('input', $event.target.value)"
+          v-on:focus="handleOnFocus(true)"
+          v-on:blur="handleOnFocus(false)"
+        />
+        <div v-bind:class="placeholderClasses">
           {{ placeholder }}
         </div>
       </div>
@@ -18,7 +24,43 @@ export default {
   props: {
     inputProps: Object,
     placeholder: String,
+    value: String
   },
+
+  data() {
+    return {
+      focused: false,
+      placeholderFocused: false,
+      placeholderFocusedWithText: !!this.value
+    }
+  },
+
+  computed: {
+    placeholderClasses() {
+      return {
+        placeholder: true,
+        'placeholder-focused': this.placeholderFocused,
+        'placeholder-focused-with-text': this.placeholderFocusedWithText
+      }
+    }
+  },
+
+  methods: {
+    handleOnFocus(focused) {
+      this.focused = focused;
+      console.log('focused', focused, this.value);
+      if (!this.focused) {
+        if (this.value) {
+          this.placeholderFocusedWithText = true;
+        } else {
+          this.placeholderFocusedWithText = false;
+        }
+        this.placeholderFocused = false;
+      } else {
+        this.placeholderFocused = true;
+      }
+    }
+  }
 };
 </script>
 
@@ -49,7 +91,7 @@ export default {
   margin: 1px 1px 0 1px;
   padding: 13px 15px;
   z-index: 1;
-  border: 1px solid;
+  border: 1px solid #dadce0;
   flex-shrink: 1;
   background-color: transparent;
   display: block;
@@ -81,7 +123,13 @@ export default {
   z-index: 1;
 }
 
-input:not([disabled]):focus ~ .placeholder {
+input:not([disabled]) ~ .placeholder-focused {
+  transform: scale(0.75) translateY(-39px);
+  color: #1a73e8;
+}
+
+input:not([disabled]) ~ .placeholder-focused-with-text {
   transform: scale(0.75) translateY(-39px);
 }
+
 </style>
