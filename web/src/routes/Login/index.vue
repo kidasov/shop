@@ -6,7 +6,9 @@
 </style>
 
 <template>
-  <div class="container">
+  <div>
+    <LoginForm />
+
     <section>
       <form @submit.prevent="handleRegister">
         <div>Register</div>
@@ -32,29 +34,19 @@
         </button>
       </form>
     </section>
-
-    <section>
-      <form @submit.prevent="handleSubmit(username, password)">
-        <div>Login</div>
-        <fieldset class="form-group">
-          <input type="text" v-model="email" placeholder="Email" />
-        </fieldset>
-        <fieldset class="form-group">
-          <input type="password" v-model="password" placeholder="Password" />
-        </fieldset>
-        <button>
-          Sign in
-        </button>
-      </form>
-    </section>
   </div>
 </template>
 
 <script>
 import { LOGIN, REGISTER } from "@/store/actions.type";
+import LoginForm from "./components/LoginForm";
 
 export default {
   name: "Login",
+
+  components: {
+    LoginForm
+  },
 
   data() {
     return {
@@ -95,11 +87,5 @@ export default {
 <style scoped>
 fieldset {
   border: 0;
-}
-
-.container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-gap: 1rem;
 }
 </style>
