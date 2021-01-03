@@ -1,9 +1,9 @@
 <template>
-  <div class="container">
-    <div class="content">
-      <div class="input-container">
+  <div class="input__container">
+    <div class="input__content">
+      <div class="input__field__container">
         <input
-          class="input-wrapper input" v-bind="inputProps"
+          class="input" v-bind="inputProps"
           v-bind:value="value"
           v-on:input="$emit('input', $event.target.value)"
           v-on:focus="handleOnFocus(true)"
@@ -48,7 +48,6 @@ export default {
   methods: {
     handleOnFocus(focused) {
       this.focused = focused;
-      console.log('focused', focused, this.value);
       if (!this.focused) {
         if (this.value) {
           this.placeholderFocusedWithText = true;
@@ -65,18 +64,18 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.input__container {
   height: 56px;
 }
 
-.input-container {
+.input__field__container {
   position: relative;
   display: flex;
-  flex-shring: 1;
+  flex: 1;
   min-width: 0%;
 }
 
-.content {
+.input__content {
   display: flex;
   position: relative;
 }
@@ -98,6 +97,7 @@ export default {
   line-height: 24px;
   min-width: 0%;
   outline: none;
+  width: 100%;
 }
 
 .placeholder {
@@ -124,12 +124,16 @@ export default {
 }
 
 input:not([disabled]) ~ .placeholder-focused {
-  transform: scale(0.75) translateY(-39px);
+  transform: scale(0.75) translateY(-40px);
   color: #1a73e8;
 }
 
 input:not([disabled]) ~ .placeholder-focused-with-text {
-  transform: scale(0.75) translateY(-39px);
+  transform: scale(0.75) translateY(-40px);
+}
+
+input:not([disabled]):focus {
+  border: 2px solid #1a73e8;
 }
 
 </style>
