@@ -1,5 +1,5 @@
 <template>
-  <Form>
+  <Form @onClose="handleOnClose()">
     <template v-slot:header>
       <div><span>Login</span></div>
     </template>
@@ -50,6 +50,10 @@ export default {
         .dispatch(LOGIN, { username: this.email, password: this.password })
         .then((res) => console.log("Res", res));
     },
+
+    handleOnClose() {
+      this.$emit("onClose");
+    }
   },
 };
 </script>

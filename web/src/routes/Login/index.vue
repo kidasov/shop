@@ -7,7 +7,7 @@
 
 <template>
   <div>
-    <LoginForm />
+    <LoginForm v-if="showForm" @onClose="handleOnClose()" />
 
     <section>
       <form @submit.prevent="handleRegister">
@@ -56,6 +56,7 @@ export default {
       registerUsername: null,
       registerEmail: null,
       registerPassword: null,
+      showForm: true
     };
   },
   methods: {
@@ -80,6 +81,10 @@ export default {
         })
         .then((res) => console.log("Res", res));
     },
+
+    handleOnClose() {
+      this.showForm = false;
+    }
   },
 };
 </script>

@@ -1,5 +1,10 @@
 <template>
   <section class="form__container">
+    <div class="form__close">
+      <div class="form__close__btn" @click="handleOnClose()">
+        <close-icon />
+      </div>
+    </div>
     <div class="form__header">
       <slot name="header"></slot>
     </div>
@@ -13,8 +18,18 @@
 </template>
 
 <script>
+import CloseIcon from "vue-material-design-icons/Close.vue";
+
 export default {
   name: "Form",
+
+  components: { CloseIcon },
+
+  methods: {
+    handleOnClose() {
+      this.$emit("onClose");
+    }
+  }
 };
 </script>
 
@@ -28,6 +43,22 @@ export default {
   min-height: 500px;
   border-radius: 4px;
   border: 1px solid #dadce0;
+  box-sizing: border-box;
+}
+
+.form__close {
+  display: flex;
+  grid-row: 1 / 2;
+  grid-column: 3 / 4;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.form__close__btn {
+  position: relative;
+  cursor: pointer;
+  right: 8px;
+  top: 4px;
 }
 
 .form__header {
