@@ -62,16 +62,21 @@ export default {
 }
 
 .form__header {
+  display: flex;
+  justify-content: center;
   grid-row: 2 / 3;
   grid-column: 2 / 3;
 }
 
 .form__body {
+  display: flex;
   grid-row: 3 / 4;
   grid-column: 2 / 3;
 }
 
 .form__footer {
+  display: flex;
+  justify-content: center;
   grid-row: 4 / 5;
   grid-column: 2 / 3;
 }
