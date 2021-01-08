@@ -68,8 +68,8 @@
 </template>
 
 <script>
+import { SearchableSelect } from "../../components";
 import Input from "./components/Input";
-import SearchableSelect from "../../components/SearchableSelect";
 import AddTranslationButton from "./components/AddTranslationInput";
 import {
   ADD_LANGUAGE,

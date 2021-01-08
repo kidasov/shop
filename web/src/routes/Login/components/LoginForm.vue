@@ -27,10 +27,7 @@
 </template>
 
 <script>
-import Form from "../../../components/Form";
-import Input from "../../../components/Input";
-import Button from "../../../components/Button";
-import Link from "../../../components/Link";
+import { Button, Form, Input, Link } from "../../../components";
 import { LOGIN } from "@/store/actions.type";
 
 export default {

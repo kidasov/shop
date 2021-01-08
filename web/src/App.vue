@@ -19,9 +19,7 @@
 <script>
 import { LOGOUT } from "@/store/actions.type";
 
-import Header from './components/Header';
-import Input from './components/Input';
-
+import { Header, Input } from './components';
 
 export default {
   name: 'App',
