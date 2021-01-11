@@ -14,10 +14,10 @@
       <div class="content">
         <nav>
           <div class="menu-items">
-            <a class="menu-item" href="#">Translate</a>
+            <router-link to="/dictionary" class="menu-item" tag="a">Translate</router-link>
             <a class="menu-item" href="#">Profile</a>
             <a class="menu-item" href="#">About</a>
-            <a class="menu-item" href="#">Login</a>
+            <router-link to="/login" class="menu-item" tag="a">Login</router-link>
           </div>
         </nav>
       </div>
