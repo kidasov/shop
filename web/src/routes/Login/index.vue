@@ -7,7 +7,16 @@
 
 <template>
   <div>
-    <LoginForm v-if="showForm" @onClose="handleOnClose()" />
+    <LoginForm
+      v-if="showLoginForm"
+      @onClose="handleLoginFormClose()"
+      @onCreateAccountClick="handleOnCreateAcoountClick()"
+    />
+
+    <RegisterForm
+      v-if="showRegisterForm"
+      @onClose="handleRegisterFormClose()"
+    />
 
     <section>
       <form @submit.prevent="handleRegister">
@@ -40,12 +49,14 @@
 <script>
 import { LOGIN, REGISTER } from "@/store/actions.type";
 import LoginForm from "./components/LoginForm";
+import RegisterForm from "./components/RegisterForm";
 
 export default {
   name: "Login",
 
   components: {
-    LoginForm
+    LoginForm,
+    RegisterForm
   },
 
   data() {
@@ -56,7 +67,8 @@ export default {
       registerUsername: null,
       registerEmail: null,
       registerPassword: null,
-      showForm: true
+      showLoginForm: true,
+      showRegisterForm: false
     };
   },
   methods: {
@@ -82,8 +94,17 @@ export default {
         .then((res) => console.log("Res", res));
     },
 
-    handleOnClose() {
-      this.showForm = false;
+    handleLoginFormClose() {
+      this.showLoginForm = false;
+    },
+
+    handleRegisterFormClose() {
+      this.showRegisterForm = false;
+    },
+
+    handleOnCreateAcoountClick() {
+      this.showLoginForm = false;
+      this.showRegisterForm = true;
     }
   },
 };

@@ -2,6 +2,7 @@
   <div id="app">
     <Header/>
     <Input :inputProps="inputProps" placeholder="Username" v-model="inputValue" />
+      <Button name="Register" @onClick="handleRegister()"></Button>
     <router-view></router-view>
     <div v-if="isAuthenticated">
       <router-link to="/dictionary" >
@@ -19,13 +20,14 @@
 <script>
 import { LOGOUT } from "@/store/actions.type";
 
-import { Header, Input } from './components';
+import { Header, Input, Button } from './components';
 
 export default {
   name: 'App',
   components: {
     Header,
-    Input
+    Input,
+    Button
   },
 
   computed: {
@@ -53,6 +55,9 @@ export default {
   methods: {
     handleLogout() {
       this.$store.dispatch(LOGOUT);
+    },
+    handleRegister() {
+      console.log('Handle register');
     }
   }
 }

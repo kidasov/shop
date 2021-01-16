@@ -1,6 +1,6 @@
 <template>
   <div class="link__container">
-    <button type="button">{{ placeholder }}</button>
+    <button type="button" @click="handleClick">{{ placeholder }}</button>
   </div>
 </template>
 
