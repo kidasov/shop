@@ -2,7 +2,7 @@
   <div class="form__container__wrapper">
     <div class="form__backdrop"></div>
     <section class="form__container">
-      <div class="form__close">
+      <div v-if="closeable" class="form__close">
         <div class="form__close__btn" @click="handleOnClose()">
           <close-icon />
         </div>
@@ -27,6 +27,13 @@ export default {
   name: "Form",
 
   components: { CloseIcon },
+
+  props: {
+    closeable: {
+      type: Boolean,
+      default: true
+    }
+  },
 
   methods: {
     handleOnClose() {
