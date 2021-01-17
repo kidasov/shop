@@ -3,7 +3,7 @@
     <div class="input__content">
       <div class="input__field__container">
         <input
-          class="input" v-bind="inputProps"
+          v-bind:class="inputClasses" v-bind="inputProps"
           v-bind:value="value"
           v-on:input="$emit('input', $event.target.value)"
           v-on:focus="handleOnFocus(true)"
@@ -24,7 +24,8 @@ export default {
   props: {
     inputProps: Object,
     placeholder: String,
-    value: String
+    value: String,
+    error: Boolean
   },
 
   data() {
@@ -41,6 +42,12 @@ export default {
         placeholder: true,
         'placeholder-focused': this.placeholderFocused,
         'placeholder-focused-with-text': this.placeholderFocusedWithText
+      }
+    },
+    inputClasses() {
+      return {
+        input: true,
+        error: this.error,
       }
     }
   },
@@ -134,6 +141,10 @@ input:not([disabled]) ~ .placeholder-focused-with-text {
 
 input:not([disabled]):focus {
   border: 2px solid #1a73e8;
+}
+
+.error {
+  border: 1px solid #d93025;
 }
 
 </style>

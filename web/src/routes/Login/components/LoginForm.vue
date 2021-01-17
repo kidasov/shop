@@ -8,19 +8,30 @@
     <template v-slot:body>
       <form @submit.prevent="handleLogin(username, password)">
         <fieldset class="form-group">
-          <Input type="text" v-model="email" placeholder="Email" />
+          <Input
+            type="text"
+            v-model="email"
+            placeholder="Email"
+            v-bind:error="!!error"
+          />
         </fieldset>
         <fieldset class="form-group">
           <Input type="password" v-model="password" placeholder="Password" />
         </fieldset>
         <div class="login__form__submit__btn">
-          <Button name="Sign In" @onClick="handleLogin(username, password)"></Button>
+          <Button
+            name="Sign In"
+            @onClick="handleLogin(username, password)"
+          ></Button>
         </div>
       </form>
     </template>
     <template v-slot:footer>
       <div class="login__form__register__btn">
-        <Link placeholder="Create account" @onClick="handleOnCreateAccountClick()"/>
+        <Link
+          placeholder="Create account"
+          @onClick="handleOnCreateAccountClick()"
+        />
       </div>
     </template>
   </Form>
@@ -37,7 +48,7 @@ export default {
     Form,
     Input,
     Button,
-    Link
+    Link,
   },
 
   data() {
@@ -45,14 +56,19 @@ export default {
       username: null,
       password: null,
       email: null,
+      error: "",
     };
   },
   methods: {
-    handleLogin() {
-      console.log('username', this.password);
-      this.$store
-        .dispatch(LOGIN, { username: this.email, password: this.password })
-        .then((res) => console.log("Res", res));
+    async handleLogin() {
+      try {
+        await this.$store.dispatch(LOGIN, {
+          username: this.email,
+          password: this.password,
+        });
+      } catch (error) {
+        this.error = error;
+      }
     },
 
     handleOnClose() {
@@ -60,7 +76,7 @@ export default {
     },
     handleOnCreateAccountClick() {
       this.$emit("onCreateAccountClick");
-    }
+    },
   },
 };
 </script>
