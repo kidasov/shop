@@ -7,17 +7,27 @@
     </template>
     <template v-slot:body>
       <form @submit.prevent="handleLogin(username, password)">
-        <fieldset class="form-group">
-          <Input
-            type="text"
-            v-model="email"
-            placeholder="Email"
-            v-bind:error="!!error"
-          />
-        </fieldset>
-        <fieldset class="form-group">
-          <Input type="password" v-model="password" placeholder="Password" />
-        </fieldset>
+        <div class="login__form__inputs">
+          <fieldset class="form-group">
+            <Input
+              type="text"
+              v-model="email"
+              placeholder="Email"
+              v-bind:error="!!error.statusText"
+            />
+          </fieldset>
+          <fieldset class="form-group">
+            <Input
+              type="password"
+              v-model="password"
+              placeholder="Password"
+              v-bind:error="!!error.statusText"
+            />
+          </fieldset>
+          <div class="login__form__error">
+            <FormError v-if="error.statusText" :message="error.statusText" />
+          </div>
+        </div>
         <div class="login__form__submit__btn">
           <Button
             name="Sign In"
@@ -38,7 +48,7 @@
 </template>
 
 <script>
-import { Button, Form, Input, Link } from "../../../components";
+import { Button, Form, FormError, Input, Link } from "../../../components";
 import { LOGIN } from "@/store/actions.type";
 
 export default {
@@ -46,6 +56,7 @@ export default {
 
   components: {
     Form,
+    FormError,
     Input,
     Button,
     Link,
@@ -56,7 +67,7 @@ export default {
       username: null,
       password: null,
       email: null,
-      error: "",
+      error: {},
     };
   },
   methods: {
@@ -101,5 +112,13 @@ form {
 
 .login__form__register__btn {
   margin-top: 8px;
+}
+
+.login__form__error {
+  position: absolute;
+}
+
+.login__form__inputs {
+  position: relative;
 }
 </style>
