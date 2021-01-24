@@ -4,6 +4,7 @@
     <Input :inputProps="inputProps" placeholder="Username" v-model="inputValue" />
     <Button name="Register" @onClick="handleRegister()"></Button>
     <FormError message="Can not found your account" />
+    <Toast @onClose="handleOnToastClose()" v-if="showToast" title="Title" message="I am a simple toast"/>
     <router-view></router-view>
     <div v-if="isAuthenticated">
       <router-link to="/dictionary" >
@@ -21,7 +22,7 @@
 <script>
 import { LOGOUT } from "@/store/actions.type";
 
-import { FormError, Header, Input, Button } from './components';
+import { FormError, Header, Input, Button, Toast } from './components';
 
 export default {
   name: 'App',
@@ -29,7 +30,8 @@ export default {
     Header,
     Input,
     Button,
-    FormError
+    FormError,
+    Toast
   },
 
   computed: {
@@ -50,7 +52,8 @@ export default {
 
   data() {
     return {
-      inputValue: 'Hello'
+      inputValue: 'Hello',
+      showToast: true,
     };
   },
 
@@ -60,6 +63,9 @@ export default {
     },
     handleRegister() {
       console.log('Handle register');
+    },
+    handleOnToastClose() {
+      this.showToast = false;
     }
   }
 }

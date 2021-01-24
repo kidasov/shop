@@ -6,5 +6,16 @@ import Link from "./Link";
 import Menu from "./Menu";
 import SearchableSelect from "./SearchableSelect";
 import FormError from "./FormError";
+import Toast from "./Toast";
 
-export { Button, Form, FormError, Header, Input, Link, Menu, SearchableSelect };
+export { 
+  Button,
+  Form,
+  FormError,
+  Header,
+  Input,
+  Link,
+  Menu,
+  SearchableSelect,
+  Toast
+};
