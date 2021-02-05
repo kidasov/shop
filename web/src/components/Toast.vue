@@ -6,7 +6,7 @@
     appear-to-class="toast__appear__to"
     appear-active-class="toast__appear__active"
   >
-    <div class="toast__container" @click="handleOnClose()">
+    <div v-bind:class="containerClasses" @click="handleOnClose()">
       <div class="toast__content">
         <div class="toast__close">
           <div class="toast__close_btn">
@@ -39,14 +39,26 @@ export default {
     message: {
       type: String,
     },
+    type: {
+      type: String,
+      defaultValue: "success"
+    },
   },
 
   methods: {
     handleOnClose() {
-      console.log('clicked here');
       this.$emit("onClose");
     },
   },
+
+  computed: {
+    containerClasses() {
+      return {
+        [`toast__container__${this.type}`]: true,
+        "toast__container": true,
+      }
+    }
+  }
 };
 </script>
 
@@ -55,7 +67,6 @@ export default {
   display: inline-block;
   min-width: 325px;
   background-color: #28a745;
-  border-left: 8px solid #1f8838;
   cursor: pointer;
 }
 
@@ -106,5 +117,25 @@ export default {
   opacity: 0;
   transform: translateY(50%);
   transition: all 0.3s ease-in;
+}
+
+.toast__container__success {
+  background-color: #81c784;
+  border-left: 8px solid #388e3c;
+}
+
+.toast__container__error {
+  background-color: #e57373;
+  border-left: 8px solid #d32f2f;
+}
+
+.toast__container__info {
+  background-color: #64b5f6;
+  border-left: 8px solid #1976d2;
+}
+
+.toast__container__warning {
+  background-color: #ffb74d;
+  border-left: 8px solid #f57c00;
 }
 </style>

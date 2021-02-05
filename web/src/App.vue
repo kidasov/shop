@@ -3,8 +3,11 @@
     <Header/>
     <Input :inputProps="inputProps" placeholder="Username" v-model="inputValue" />
     <Button name="Register" @onClick="handleRegister()"></Button>
-    <FormError message="Can not found your account" />
-    <Toast @onClose="handleOnToastClose()" v-if="showToast" title="Title" message="I am a simple toast"/>
+    <FormError message="Could not find your account" />
+    <Toast @onClose="handleOnToastClose()" v-if="showToast" type="warning" title="Title" message="I am a simple toast"/>
+    <Toast @onClose="handleOnToastClose()" v-if="showToast" type="info" title="Title" message="I am a simple toast"/>
+    <Toast @onClose="handleOnToastClose()" v-if="showToast" type="error" title="Title" message="I am a simple toast"/>
+    <Toast @onClose="handleOnToastClose()" v-if="showToast" type="success" title="Title" message="I am a simple toast"/>
     <router-view></router-view>
     <div v-if="isAuthenticated">
       <router-link to="/dictionary" >
