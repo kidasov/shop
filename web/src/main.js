@@ -1,16 +1,9 @@
-import Vue from "vue";
+import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import { clickOutside } from "./directives";
 
-Vue.config.productionTip = false;
-
-
-Vue.directive("click-outside", clickOutside);
-
-new Vue({
-  router,
-  store,
-  render: (h) => h(App),
-}).$mount("#app");
+const app = createApp(App);
+app.directive("click-outside", clickOutside);
+app.use(router).use(store).mount("#app");
