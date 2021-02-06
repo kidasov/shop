@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <Header/>
+    <HelloWorld />
+    <!-- <Header/>
     <Input :inputProps="inputProps" placeholder="Username" v-model="inputValue" />
     <Button name="Register" @onClick="handleRegister()"></Button>
     <FormError message="Could not find your account" />
@@ -18,23 +19,25 @@
           <span>Logout</span>
         </button>
       </div>
-    </div>    
+    </div>-->
   </div>
 </template>
 
 <script>
 import { LOGOUT } from "@/store/actions.type";
 
-import { FormError, Header, Input, Button, Toast } from './components';
+// import {  FormError, Header, Input, Button, Toast } from './components';
+import HelloWorld from "./components/HelloWorld";
 
 export default {
   name: 'App',
   components: {
-    Header,
-    Input,
-    Button,
-    FormError,
-    Toast
+    HelloWorld
+    // Header,
+    // Input,
+    // Button,
+    // FormError,
+    // Toast
   },
 
   computed: {
