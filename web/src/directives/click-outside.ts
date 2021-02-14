@@ -1,5 +1,5 @@
 export const clickOutside = {
-  bind: function(el, binding, vNode) {
+  beforeMount: function(el, binding, vNode) {
     console.log('binded');
     // Provided expression must evaluate to a function.
     if (typeof binding.value !== "function") {
@@ -24,7 +24,7 @@ export const clickOutside = {
     document.addEventListener("click", handler);
   },
 
-  unbind: function(el) {
+  unmounted: function(el) {
     console.log('undigned');
     // Remove Event Listeners
     document.removeEventListener("click", el.__vueClickOutside__);

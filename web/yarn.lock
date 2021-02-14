@@ -7483,14 +7483,10 @@ vue-loader@^16.0.0-alpha.3:
     hash-sum "^2.0.0"
     loader-utils "^2.0.0"
 
-vue-material-design-icons@^4.11.0:
-  version "4.11.0"
-  resolved "https://registry.yarnpkg.com/vue-material-design-icons/-/vue-material-design-icons-4.11.0.tgz#11356194846a5806d958ede531291605cc314b33"
-  integrity sha512-3Tyeqi9jtONQ/x8WkJqiBs4t5Bd5O1t7RdM/GIPKVYoVdaRy0oy3nbRjnMGyONBlqC/NpPjzhWeoZWUMEI04nA==
-
-vue-router@^3.1.6:
-  version "3.1.6"
-  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.1.6.tgz#45f5a3a3843e31702c061dd829393554e4328f89"
+vue-router@4:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-4.0.3.tgz#8b26050c88b2dec7e27a88835f71046b365823ec"
+  integrity sha512-AD1OjtVPyQHTSpoRsEGfPpxRQwhAhxcacOYO3zJ3KNkYP/r09mileSp6kdMQKhZWP2cFsPR3E2M3PZguSN5/ww==
 
 vue-style-loader@^4.1.0, vue-style-loader@^4.1.2:
   version "4.1.2"
@@ -7503,6 +7499,11 @@ vue-template-es2015-compiler@^1.9.0:
   version "1.9.1"
   resolved "https://registry.npm.taobao.org/vue-template-es2015-compiler/download/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
 
+vue3-material-design-icons@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/vue3-material-design-icons/-/vue3-material-design-icons-5.0.2.tgz#418743a35f7d8a9497105c2825e6ab72ee519876"
+  integrity sha512-hrZCKLPhY6ZeKlqU3JlwUJaoC1BhQPE9OQ3a1/9f6Zr8ioaRQkj0YPPWZnlwt5Jpxw3TxCDeUGv+qG/v4IX1FQ==
+
 vue@^3.0.0-beta.1:
   version "3.0.5"
   resolved "https://registry.yarnpkg.com/vue/-/vue-3.0.5.tgz#de1b82eba24abfe71e0970fc9b8d4b2babdc3fe1"
@@ -7512,7 +7513,7 @@ vue@^3.0.0-beta.1:
     "@vue/runtime-dom" "3.0.5"
     "@vue/shared" "3.0.5"
 
-vuex@^4.0.0-alpha.1:
+vuex@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/vuex/-/vuex-4.0.0.tgz#ac877aa76a9c45368c979471e461b520d38e6cf5"
   integrity sha512-56VPujlHscP5q/e7Jlpqc40sja4vOhC4uJD1llBCWolVI8ND4+VzisDVkUMl+z5y0MpIImW6HjhNc+ZvuizgOw==

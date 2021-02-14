@@ -1,16 +1,19 @@
-import Router from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
+import Login from "../routes/Login/index.vue";
+import Dictionary from "../routes/Dictionary/index.vue";
 
-export default new Router({
+export default createRouter({
+  history: createWebHistory('/base-directory/'),
   routes: [
     {
       path: '/login',
       name: 'login',
-      component: () => import('@/routes/Login')
+      component: Login
     },
     {
       path: '/dictionary',
       name: 'dictionary',
-      component: () => import('@/routes/Dictionary')
+      component: Dictionary
     },
   ]
 });

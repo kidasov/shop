@@ -47,9 +47,9 @@ const actions = {
       context.commit(SET_ERROR, err);
     }
   },
-  async [GET_LANGUAGES](context, data) {
+  async [GET_LANGUAGES](context) {
     try {
-      const response = await api.get("/languages", { ...data });
+      const response = await api.get("/languages");
       context.commit(SET_LANGUAGES_MUTATION, response);
     } catch (err) {
       context.commit(SET_ERROR, err);

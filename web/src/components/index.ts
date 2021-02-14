@@ -1,14 +1,14 @@
-import Button from "./Button";
-import Form from "./Form";
-import Header from "./Header";
-import Input from "./Input";
-import Link from "./Link";
-import Menu from "./Menu";
-import SearchableSelect from "./SearchableSelect";
-import FormError from "./FormError";
-import Toast from "./Toast";
+import Button from "./Button.vue";
+import Form from "./Form.vue";
+import Header from "./Header.vue";
+import Input from "./Input.vue";
+import Link from "./Link.vue";
+import Menu from "./Menu.vue";
+import SearchableSelect from "./SearchableSelect.vue";
+import FormError from "./FormError.vue";
+import Toast from "./Toast.vue";
 
-export { 
+export {
   Button,
   Form,
   FormError,
@@ -17,5 +17,5 @@ export {
   Link,
   Menu,
   SearchableSelect,
-  Toast
+  Toast,
 };

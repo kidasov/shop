@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import CloseIcon from "vue-material-design-icons/Close.vue";
+import CloseIcon from "vue3-material-design-icons/Close.vue";
 
 export default {
   name: "Form",

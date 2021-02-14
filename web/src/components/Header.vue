@@ -22,8 +22,8 @@
 </template>
 
 <script>
-import Menu from "./Menu";
-import MenuIcon from "vue-material-design-icons/Menu.vue";
+import Menu from "./Menu.vue";
+import MenuIcon from "vue3-material-design-icons/Menu.vue";
 
 export default {
   name: "Header",

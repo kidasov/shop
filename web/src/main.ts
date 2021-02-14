@@ -6,4 +6,6 @@ import { clickOutside } from "./directives";
 
 const app = createApp(App);
 app.directive("click-outside", clickOutside);
-app.use(router).use(store).mount("#app");
+app.use(router);
+app.use(store);
+app.mount("#app");

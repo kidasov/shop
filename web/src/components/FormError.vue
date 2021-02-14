@@ -6,7 +6,7 @@
 </template>
 
 <script>
-  import AlertCircleIcon from "vue-material-design-icons/AlertCircle.vue";
+  import AlertCircleIcon from "vue3-material-design-icons/AlertCircle.vue";
 
   export default {
     name: "FormError",
