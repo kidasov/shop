@@ -1,12 +1,9 @@
 <template>
   <transition
-    name="toast-transition"
+    name="toast-fade"
     appear
-    appear-class="toast__appear"
-    appear-to-class="toast__appear__to"
-    appear-active-class="toast__appear__active"
   >
-    <div v-bind:class="containerClasses" @click="handleOnClose()">
+    <div v-if="appear" v-bind:class="containerClasses" @click="handleOnClose()">
       <div class="toast__content">
         <div class="toast__close">
           <div class="toast__close_btn">
@@ -30,6 +27,12 @@ import CloseIcon from "vue3-material-design-icons/Close.vue";
 export default {
   name: "Toast",
 
+  data() {
+    return {
+      appear: true,
+    }
+  },
+
   components: { CloseIcon },
 
   props: {
@@ -47,8 +50,12 @@ export default {
 
   methods: {
     handleOnClose() {
-      this.$emit("onClose");
-    },
+      this.appear = false;
+
+      setTimeout(() => {
+        this.$emit("onClose");
+      }, 500);
+    }
   },
 
   computed: {
@@ -68,6 +75,7 @@ export default {
   min-width: 325px;
   background-color: #28a745;
   cursor: pointer;
+  transition: all 0.5s ease;
 }
 
 .toast__content {
@@ -109,14 +117,13 @@ export default {
   opacity: 0;
 }
 
-.toast__appear__active {
-  transition: opacity 0.3s ease-in;
+.toast-fade-enter-from {
+  opacity: 0;
 }
 
-.toast-transition-leave-active {
-  opacity: 0;
+.toast-fade-leave-to {
   transform: translateY(50%);
-  transition: all 0.3s ease-in;
+  opacity: 0;
 }
 
 .toast__container__success {
